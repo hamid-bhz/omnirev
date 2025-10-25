@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://api-mock.omnirev.ai';
+export const API_BASE_URL = '/api';
 
 export const STORAGE_KEYS = {
   AUTH_TOKEN: 'omnirev_auth_token',

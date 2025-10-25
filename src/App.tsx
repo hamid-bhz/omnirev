@@ -1,40 +1,7 @@
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-
-import Login from '@pages/Login';
-import Contacts from '@pages/Contacts';
-import Dashboard from '@pages/Dashboard';
-
-import {AuthProvider} from '@context';
-import {ProtectedRoute} from '@components';
-import MainLayout from '@layouts/MainLayout';
+import {AppProviders} from '@providers';
 
 function App() {
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-
-          {/* Protected routes */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <MainLayout />
-              </ProtectedRoute>
-            }>
-            <Route index element={<Navigate to="/dashboard" replace />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="contacts" element={<Contacts />} />
-          </Route>
-
-          {/* Catch all - redirect to dashboard */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  );
+  return <AppProviders />;
 }
 
 export default App;

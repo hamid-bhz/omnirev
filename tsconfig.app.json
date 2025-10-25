@@ -28,11 +28,13 @@
       "@hooks": ["./src/hooks"],
       "@types": ["./src/types"],
       "@utils": ["./src/utils"],
+      "@routes": ["./src/routes"],
       "@context": ["./src/context"],
       "@pages/*": ["./src/pages/*"],
       "@services": ["./src/services"],
       "@layouts/*": ["./src/layouts/*"],
       "@constants": ["./src/constants"],
+      "@providers": ["./src/providers"],
       "@components": ["./src/components"]
     }
   },

@@ -1,23 +1,23 @@
-import {createContext, useContext, useState, useEffect} from 'react';
 import type {ReactNode} from 'react';
+import {createContext, useContext, useState, useEffect} from 'react';
 
-import type {User} from '@types';
-import {authService} from '@services';
 import {
-  saveAuthToken,
-  removeAuthToken,
   getAuthToken,
+  saveAuthToken,
   saveToStorage,
   getFromStorage,
+  removeAuthToken,
 } from '@utils';
+import type {User} from '@types';
+import {authService} from '@services';
 import {STORAGE_KEYS} from '@constants';
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
+  isLoading: boolean;
   logout: () => void;
   isAuthenticated: boolean;
-  isLoading: boolean;
+  login: (username: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

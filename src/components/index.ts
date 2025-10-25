@@ -8,3 +8,6 @@ export {default as Header} from './Header';
 
 // Route Components
 export {default as ProtectedRoute} from './ProtectedRoute';
+
+// Dashboard Components
+export * from './Dashboard';
