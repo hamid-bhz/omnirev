@@ -41,8 +41,43 @@ export default function CategoryChart({data, isLoading}: CategoryChartProps) {
               cy="50%"
               labelLine={false}
               label={(props: PieLabelRenderProps) => {
+                const RADIAN = Math.PI / 180;
+                const radius = 100 * 0.85;
+                const x =
+                  Number(props.cx ?? 0) +
+                  radius * Math.cos(-Number(props.midAngle ?? 0) * RADIAN);
+                const y =
+                  Number(props.cy ?? 0) +
+                  radius * Math.sin(-Number(props.midAngle ?? 0) * RADIAN);
                 const percent = Number(props.percent ?? 0);
-                return `${(percent * 100).toFixed(1)}%`;
+                const percentText = `${(percent * 100).toFixed(1)}%`;
+
+                const padding = 12;
+                const textWidth = percentText.length * 7;
+                const textHeight = 20;
+
+                return (
+                  <g>
+                    <rect
+                      x={x - textWidth / 2 - padding / 2}
+                      y={y - textHeight / 2}
+                      width={textWidth + padding}
+                      height={textHeight}
+                      fill="rgba(0, 0, 0, 0.7)"
+                      rx="6"
+                      ry="6"
+                    />
+                    <text
+                      x={x}
+                      y={y}
+                      fill="white"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      className="text-sm font-semibold">
+                      {percentText}
+                    </text>
+                  </g>
+                );
               }}
               outerRadius={100}
               fill="#8884d8"
