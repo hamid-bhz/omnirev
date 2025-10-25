@@ -1,4 +1,4 @@
-import {STORAGE_KEYS} from './constants';
+import {STORAGE_KEYS} from '@constants';
 
 /**
  * Save data to localStorage

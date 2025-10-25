@@ -1,9 +1,9 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
-import MainLayout from './layouts/MainLayout';
-import Dashboard from './pages/Dashboard';
-import Contacts from './pages/Contacts';
-import Login from './pages/Login';
+import Login from '@pages/Login';
+import Contacts from '@pages/Contacts';
+import Dashboard from '@pages/Dashboard';
+import MainLayout from '@layouts/MainLayout';
 
 function App() {
   return (
