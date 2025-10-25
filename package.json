@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "type-check": "tsc --noEmit -p tsconfig.app.json",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint-staged": "lint-staged",
     "prepare": "husky"
   },
