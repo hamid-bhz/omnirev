@@ -1,0 +1,16 @@
+node_modules
+dist
+
+# Lock files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+public
+
+# Assets
+*.svg
