@@ -3,23 +3,37 @@ import type {AxiosError} from 'axios';
 import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+import {useLogin} from '@hooks';
 import {useAuth} from '@context';
+import {STORAGE_KEYS} from '@constants';
+import type {AuthResponse, User} from '@types';
 import {Button, Input, Icon} from '@components';
+import {saveAuthToken, saveToStorage} from '@utils';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  const {login, isAuthenticated, isLoading: authLoading} = useAuth();
   const navigate = useNavigate();
+  const loginMutation = useLogin(onLoginSuccess);
+  const {isAuthenticated, isLoading: authLoading, setUser} = useAuth();
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
       navigate('/dashboard', {replace: true});
     }
   }, [isAuthenticated, authLoading, navigate]);
+
+  function onLoginSuccess(response: AuthResponse) {
+    saveAuthToken(response.token);
+    const userData: User = {
+      username: response.username,
+      token: response.token,
+    };
+    saveToStorage(STORAGE_KEYS.USER, userData);
+
+    setUser(userData);
+  }
 
   if (authLoading) {
     return (
@@ -32,23 +46,15 @@ export default function Login() {
     );
   }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-
-    try {
-      await login(username, password);
-      navigate('/dashboard');
-    } catch (err) {
-      const axiosError = err as AxiosError<{error: string}>;
-      setError(
-        axiosError.response?.data?.error || 'Login failed. Please try again.'
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    loginMutation.mutate({username, password});
   };
+
+  const error = loginMutation.error
+    ? (loginMutation.error as AxiosError<{error: string}>).response?.data
+        ?.error || 'Login failed. Please try again.'
+    : '';
 
   return (
     <div className="flex min-h-screen">
@@ -182,8 +188,8 @@ export default function Login() {
                 variant="primary"
                 size="lg"
                 className="w-full"
-                disabled={isLoading}>
-                {isLoading ? (
+                disabled={loginMutation.isPending}>
+                {loginMutation.isPending ? (
                   <span className="flex items-center justify-center">
                     <Icon
                       name="spinner"

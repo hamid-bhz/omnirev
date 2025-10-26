@@ -32,7 +32,9 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       removeAuthToken();
 
-      window.location.href = '/login';
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = '/login';
+      }
     }
 
     return Promise.reject(error);

@@ -3,13 +3,11 @@ import {createContext, useContext, useState, useEffect} from 'react';
 
 import {
   getAuthToken,
-  saveAuthToken,
   saveToStorage,
   getFromStorage,
   removeAuthToken,
 } from '@utils';
 import type {User} from '@types';
-import {authService} from '@services';
 import {STORAGE_KEYS} from '@constants';
 
 interface AuthContextType {
@@ -17,7 +15,7 @@ interface AuthContextType {
   isLoading: boolean;
   logout: () => void;
   isAuthenticated: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  setUser: (user: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,19 +35,6 @@ export function AuthProvider({children}: {children: ReactNode}) {
     setIsLoading(false);
   }, []);
 
-  const login = async (username: string, password: string) => {
-    const response = await authService.login({username, password});
-
-    saveAuthToken(response.token);
-    const userData: User = {
-      username: response.username,
-      token: response.token,
-    };
-    saveToStorage(STORAGE_KEYS.USER, userData);
-
-    setUser(userData);
-  };
-
   const logout = () => {
     removeAuthToken();
     saveToStorage(STORAGE_KEYS.USER, null);
@@ -58,8 +43,8 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
   const value: AuthContextType = {
     user,
-    login,
     logout,
+    setUser,
     isAuthenticated: !!user,
     isLoading,
   };
