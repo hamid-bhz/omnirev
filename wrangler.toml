@@ -1,0 +1,11 @@
+name = "omnirev"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages integration
+[site]
+bucket = "./dist"
+
+# Environment variables (optional)
+[vars]
+API_BASE_URL = "https://api-mock.omnirev.ai"

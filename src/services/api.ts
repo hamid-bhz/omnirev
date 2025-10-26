@@ -4,10 +4,7 @@ import type {AxiosError, InternalAxiosRequestConfig} from 'axios';
 import {getAuthToken, removeAuthToken} from '@utils';
 
 export const apiClient = axios.create({
-  baseURL:
-    import.meta.env.MODE === 'development'
-      ? '/api'
-      : import.meta.env.VITE_API_BASE_URL,
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
