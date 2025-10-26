@@ -7,6 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), tailwindcss()],
   server: {
+    port: 3000,
     proxy: {
       '/api': {
         target: 'https://api-mock.omnirev.ai',
@@ -15,5 +16,22 @@ export default defineConfig({
         secure: false,
       },
     },
+  },
+  build: {
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+        },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+      },
+    },
+    minify: 'esbuild',
+    target: 'es2020',
+    chunkSizeWarningLimit: 1000,
   },
 });
