@@ -25,17 +25,3 @@ export const formatDate = (dateString: string): string => {
     return '-';
   }
 };
-
-/**
- * Format a date to ISO 8601 format for API
- */
-export const formatDateISO = (date: Date): string => {
-  return date.toISOString();
-};
-
-/**
- * Combine first and last name
- */
-export const formatFullName = (firstName: string, lastName: string): string => {
-  return `${firstName} ${lastName}`.trim();
-};

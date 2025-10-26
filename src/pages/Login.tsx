@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {useAuth} from '@context';
-import {Button, Input} from '@components';
+import {Button, Input, Icon} from '@components';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -64,18 +64,7 @@ export default function Login() {
           <div className="space-y-4">
             <div className="flex items-start space-x-4">
               <div className="rounded-lg bg-white/10 p-3 backdrop-blur-sm">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
+                <Icon name="chart" size={24} />
               </div>
               <div>
                 <h3 className="font-semibold">Powerful Analytics</h3>
@@ -87,18 +76,7 @@ export default function Login() {
 
             <div className="flex items-start space-x-4">
               <div className="rounded-lg bg-white/10 p-3 backdrop-blur-sm">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+                <Icon name="users" size={24} />
               </div>
               <div>
                 <h3 className="font-semibold">Contact Management</h3>
@@ -110,18 +88,7 @@ export default function Login() {
 
             <div className="flex items-start space-x-4">
               <div className="rounded-lg bg-white/10 p-3 backdrop-blur-sm">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
+                <Icon name="lock" size={24} />
               </div>
               <div>
                 <h3 className="font-semibold">Secure & Reliable</h3>
@@ -179,16 +146,11 @@ export default function Login() {
               {error && (
                 <div className="animate-shake rounded-lg border border-red-200 bg-red-50 p-4">
                   <div className="flex items-center">
-                    <svg
-                      className="mr-2 h-5 w-5 text-red-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <Icon
+                      name="alert-error"
+                      size={20}
+                      className="mr-2 text-red-400"
+                    />
                     <p className="text-sm font-medium text-red-800">{error}</p>
                   </div>
                 </div>
@@ -196,16 +158,11 @@ export default function Login() {
 
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
                 <div className="flex items-start">
-                  <svg
-                    className="mt-0.5 mr-2 h-5 w-5 text-blue-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <Icon
+                    name="info"
+                    size={20}
+                    className="mt-0.5 mr-2 text-blue-400"
+                  />
                   <div>
                     <p className="text-sm font-medium text-blue-900">
                       Demo Credentials
@@ -228,24 +185,11 @@ export default function Login() {
                 disabled={isLoading}>
                 {isLoading ? (
                   <span className="flex items-center justify-center">
-                    <svg
-                      className="mr-2 h-4 w-4 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24">
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
+                    <Icon
+                      name="spinner"
+                      size={16}
+                      className="mr-2 animate-spin"
+                    />
                     Signing in...
                   </span>
                 ) : (

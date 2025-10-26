@@ -1,5 +1,5 @@
 export interface CategoryStats {
-  [key: string]: string; // e.g., "art": "23%"
+  [key: string]: string;
 }
 
 export type DateRangePreset = 'yesterday' | '7days' | '30days' | 'custom';
