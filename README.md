@@ -2,6 +2,8 @@
 
 A modern, full-featured CRM application built with React, TypeScript, and Vite. OmniRev helps businesses manage customer relationships, track analytics, and visualize revenue metrics in real-time.
 
+**Live Application:** https://omnirev.pages.dev
+
 ## Features
 
 - **Authentication System** - Secure login with JWT token-based authentication
