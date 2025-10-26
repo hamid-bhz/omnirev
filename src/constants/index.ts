@@ -1,5 +1,3 @@
-export const API_BASE_URL = '/api';
-
 export const STORAGE_KEYS = {
   AUTH_TOKEN: 'omnirev_auth_token',
   USER: 'omnirev_user',

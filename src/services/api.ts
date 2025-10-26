@@ -1,11 +1,13 @@
 import axios from 'axios';
 import type {AxiosError, InternalAxiosRequestConfig} from 'axios';
 
-import {API_BASE_URL} from '@constants';
 import {getAuthToken, removeAuthToken} from '@utils';
 
 export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL:
+    import.meta.env.MODE === 'development'
+      ? '/api'
+      : import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
