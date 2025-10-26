@@ -1,5 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 
+import {QUERY_KEYS} from '@constants';
 import {contactsService} from '@services';
 import type {ContactFilters} from '@types';
 
@@ -10,7 +11,7 @@ export interface HighValueCustomer {
 
 export function useHighValueCustomers(filters?: ContactFilters) {
   return useQuery({
-    queryKey: ['highValueCustomers', filters],
+    queryKey: QUERY_KEYS.highValueCustomers(filters),
     queryFn: () => contactsService.getContacts(filters),
     select: data => {
       if (!data?.data) return [];
