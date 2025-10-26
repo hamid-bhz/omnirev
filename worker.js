@@ -31,7 +31,7 @@ export async function onRequest(context) {
     headers: request.headers,
     body:
       request.method !== 'GET' && request.method !== 'HEAD'
-        ? request.body
+        ? await request.text()
         : undefined,
   });
 
