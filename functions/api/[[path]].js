@@ -1,6 +1,6 @@
 // Cloudflare Pages Function to proxy API requests and add CORS headers
 export async function onRequest(context) {
-  const {request, env, next} = context;
+  const {request} = context;
   const url = new URL(request.url);
 
   // Handle CORS preflight requests
@@ -16,12 +16,7 @@ export async function onRequest(context) {
     });
   }
 
-  // Only proxy requests to /api/*
-  if (!url.pathname.startsWith('/api/')) {
-    return next();
-  }
-
-  // Remove /api prefix and forward to actual API
+  // Extract path after /api/
   const apiPath = url.pathname.replace(/^\/api/, '');
   const apiUrl = `https://api-mock.omnirev.ai${apiPath}${url.search}`;
 
