@@ -1,19 +1,18 @@
+import {lazy} from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
 
-import Login from '@pages/Login';
-import Contacts from '@pages/Contacts';
-import Dashboard from '@pages/Dashboard';
+import {ProtectedRoute} from '@/components';
+import {MainLayout} from '@/layouts/MainLayout';
 
-import {ProtectedRoute} from '@components';
-import MainLayout from '@layouts/MainLayout';
+const Login = lazy(() => import('@/pages/Login'));
+const Contacts = lazy(() => import('@/pages/Contacts'));
+const Dashboard = lazy(() => import('@/pages/Dashboard'));
 
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes */}
       <Route path="/login" element={<Login />} />
 
-      {/* Protected routes */}
       <Route
         path="/"
         element={
@@ -26,7 +25,6 @@ export function AppRoutes() {
         <Route path="contacts" element={<Contacts />} />
       </Route>
 
-      {/* Catch all - redirect to dashboard */}
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );

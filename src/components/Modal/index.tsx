@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import type {ReactNode} from 'react';
 
-import Icon from '../Icon';
+import {Icon} from '../Icon';
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface ModalProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export default function Modal({
+export function Modal({
   isOpen,
   onClose,
   title,

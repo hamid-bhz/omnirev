@@ -28,7 +28,7 @@ export type IconName =
   | 'alert-error'
   | 'spinner';
 
-export interface IconProps {
+interface IconProps {
   name: IconName;
   size?: number;
   className?: string;
@@ -50,14 +50,7 @@ const iconMap: Record<IconName, LucideIcon> = {
   spinner: Loader2,
 };
 
-/**
- * Icon component
- *
- * @example
- * <Icon name="home" size={24} />
- * <Icon name="users" size={20} className="text-blue-500" />
- */
-export default function Icon({
+export function Icon({
   name,
   size = 20,
   className = '',

@@ -7,7 +7,7 @@ interface PaginationProps {
   onItemsPerPageChange: (perPage: number) => void;
 }
 
-export default function Pagination({
+export function Pagination({
   currentPage,
   totalPages,
   totalItems,

@@ -1,13 +1,13 @@
 import {Navigate} from 'react-router-dom';
 import type {ReactNode} from 'react';
 
-import {useAuth} from '@context';
+import {useAuth} from '@/context';
 
 interface ProtectedRouteProps {
   children: ReactNode;
 }
 
-export default function ProtectedRoute({children}: ProtectedRouteProps) {
+export function ProtectedRoute({children}: ProtectedRouteProps) {
   const {isAuthenticated, isLoading} = useAuth();
 
   if (isLoading) {

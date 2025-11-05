@@ -26,13 +26,14 @@ A modern, full-featured CRM application built with React, TypeScript, and Vite. 
 ### Frontend
 
 - **React 19** - Latest React with concurrent features
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **React Router v7** - Client-side routing
-- **TanStack Query (React Query)** - Server state management and caching
-- **Axios** - HTTP client with interceptors
-- **Recharts** - Data visualization
+- **TypeScript** - Type-safe development with strict mode
+- **Vite** - Fast build tool and dev server (port 3000)
+- **React Router v7** - Client-side routing with lazy loading
+- **TanStack Query v5** - Server state management and caching
+- **Axios** - HTTP client with request/response interceptors
+- **Recharts** - Data visualization (interactive pie charts)
 - **Tailwind CSS v4** - Utility-first CSS framework
+- **Lucide React** - Modern icon library
 - **date-fns** - Date manipulation and formatting
 
 ### Deployment
@@ -52,39 +53,26 @@ A modern, full-featured CRM application built with React, TypeScript, and Vite. 
 ```
 omnirev/
 ├── src/
-│   ├── components/       # Reusable UI components
-│   │   ├── Button/
-│   │   ├── Input/
-│   │   ├── Modal/
-│   │   ├── Select/
-│   │   ├── Pagination/
-│   │   ├── Dashboard/    # Dashboard-specific components
-│   │   ├── Contacts/     # Contact management components
-│   │   └── ...
-│   ├── pages/            # Page components
-│   │   ├── Login.tsx
-│   │   ├── Dashboard.tsx
-│   │   └── Contacts.tsx
-│   ├── services/         # API service layer
-│   │   ├── api.ts        # Axios instance with interceptors
+│   ├── components/         # Reusable UI components (Button, Input, Modal, etc.)
+│   ├── pages/              # Feature-based page modules
+│   │   ├── Dashboard/      # Dashboard page with components & hooks
+│   │   ├── Contacts/       # Contacts page with components & hooks
+│   │   └── Login/          # Login page with hooks
+│   ├── layouts/            # Layout components (MainLayout, Sidebar, Header)
+│   ├── services/           # API service layer
+│   │   ├── api.ts          # Axios instance with interceptors
 │   │   ├── auth.service.ts
 │   │   ├── contacts.service.ts
 │   │   └── dashboard.service.ts
-│   ├── hooks/            # Custom React hooks
-│   │   ├── useLogin.ts
-│   │   ├── useContacts.ts
-│   │   ├── useDashboardFilters.ts
-│   │   └── ...
-│   ├── context/          # React context providers
-│   │   └── AuthContext.tsx
-│   ├── types/            # TypeScript type definitions
-│   ├── utils/            # Utility functions
-│   ├── routes/           # Route configuration
-│   └── constants/        # App constants
-├── functions/            # Cloudflare Workers functions
-│   └── api/
-│       └── [[path]].js   # CORS proxy worker
-└── dist/                 # Production build output
+│   ├── hooks/              # Shared custom hooks (useMarkets, useDebounce)
+│   ├── helpers/            # Helper functions (chartData, dateFilters)
+│   ├── context/            # React Context (AuthContext)
+│   ├── providers/          # Provider wrappers (QueryProvider, RouterProvider)
+│   ├── types/              # TypeScript type definitions
+│   ├── routes/             # Route configuration
+│   └── constants/          # App constants
+├── functions/api/          # Cloudflare Workers (CORS proxy)
+└── .github/workflows/      # CI/CD workflows
 ```
 
 ## Getting Started
@@ -96,20 +84,14 @@ omnirev/
 
 ### Installation
 
-1. Clone the repository:
-
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd omnirev
-```
 
-2. Install dependencies:
-
-```bash
+# Install dependencies
 pnpm install
 ```
-
-3. Create a `.env` file in the root directory (if needed for custom configuration)
 
 ### Development
 
@@ -138,74 +120,46 @@ The application will be available at [http://localhost:3000](http://localhost:30
 
 ## API Integration
 
-The application uses a proxy configuration to handle API requests:
+**Backend**: `https://api-mock.omnirev.ai`
 
-- **Development**: Vite proxy forwards `/api/*` requests to the backend API
-- **Production**: Cloudflare Workers function handles CORS and proxies requests
+The application uses different proxy strategies per environment:
 
-Backend API base URL: `https://api-mock.omnirev.ai`
+- **Development**: Vite proxy configuration (vite.config.ts) forwards `/api/*` to backend
+- **Production**: Cloudflare Workers function (functions/api/[[path]].js) handles CORS and proxies requests
 
-### API Endpoints
+### Key Endpoints
 
 - `POST /auth/login` - User authentication
 - `GET /contacts` - List contacts with filters and pagination
-- `GET /contacts/:id` - Get single contact
 - `PUT /contacts/:id` - Update contact
 - `GET /categories/stats` - Get category statistics
 - `GET /markets` - Get available markets
-- `GET /categories` - Get available categories
 
-## Key Features Explained
+### Path Aliases
 
-### Authentication Flow
+The project uses TypeScript path aliases for clean imports:
 
-- JWT token-based authentication
-- Tokens stored in localStorage
-- Automatic token injection via Axios interceptors
-- Auto-redirect to login on 401 responses
-- Protected routes with route guards
+```typescript
+import {useAuth} from '@/context';
+import {Button} from '@/components';
+import type {Contact} from '@/types/contact';
+```
 
-### Dashboard Analytics
-
-- Real-time category-based company statistics
-- Interactive pie chart visualization
-- High-value customer table with sorting
-- Date range presets and custom date selection
-- Market-based filtering
-
-### Contact Management
-
-- Advanced multi-criteria filtering
-- Debounced search for better performance
-- Status tracking (potential, customer, lapsed)
-- Source tracking (CRM, Organic)
-- Category classification (education, art, legal, financial)
-- Order count and total order amount tracking
+## Architecture Highlights
 
 ### State Management
 
-- TanStack Query for server state with automatic caching and refetching
-- React Context for auth state
-- Custom hooks for business logic encapsulation
-- Optimistic updates for better UX
+- **Server State**: TanStack Query for caching, background refetching, and optimistic updates
+- **Client State**: React Context for authentication
+- **Feature-based Structure**: Pages contain their own components and hooks for better organization
 
-## Code Quality
+### Code Quality & Build
 
-The project includes:
-
-- TypeScript for type safety
-- ESLint for code linting
-- Prettier for consistent formatting
-- Husky for pre-commit hooks
-- lint-staged for efficient linting
-
-## Build Optimization
-
-- Code splitting with manual chunks (vendor, router)
-- Tree shaking for minimal bundle size
-- ESBuild for fast minification
-- Sourcemap disabled in production
-- Asset optimization and hashing
+- Strict TypeScript with comprehensive type safety
+- ESLint + Prettier with pre-commit hooks (Husky, lint-staged)
+- Code splitting with manual chunks (vendor, router, query-vendor)
+- ESBuild minification and asset optimization
+- CI/CD with GitHub Actions (lint, type-check, build)
 
 ## Browser Support
 

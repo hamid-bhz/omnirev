@@ -1,8 +1,5 @@
 import {format} from 'date-fns';
 
-/**
- * Format a number as USD currency
- */
 export const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -12,10 +9,6 @@ export const formatCurrency = (amount: number): string => {
   }).format(amount);
 };
 
-/**
- * Format a date string to a friendly format
- * Example: "Aug 23, 12:30 pm"
- */
 export const formatDate = (dateString: string): string => {
   if (!dateString) return '-';
   try {

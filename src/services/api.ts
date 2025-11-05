@@ -1,7 +1,6 @@
 import axios from 'axios';
+import {getAuthToken, removeAuthToken} from '@/utils/storage';
 import type {AxiosError, InternalAxiosRequestConfig} from 'axios';
-
-import {getAuthToken, removeAuthToken} from '@utils';
 
 export const apiClient = axios.create({
   baseURL: '/api',
