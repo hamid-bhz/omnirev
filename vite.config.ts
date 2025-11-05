@@ -18,12 +18,14 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist',
     sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
+          'query-vendor': ['@tanstack/react-query'],
         },
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
@@ -32,6 +34,7 @@ export default defineConfig({
     },
     minify: 'esbuild',
     target: 'es2020',
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 500,
+    cssCodeSplit: true,
   },
 });

@@ -1,8 +1,5 @@
-import {STORAGE_KEYS} from '@constants';
+import {STORAGE_KEYS} from '@/constants/storage';
 
-/**
- * Save data to localStorage
- */
 export const saveToStorage = <T>(key: string, value: T): void => {
   try {
     const serialized = JSON.stringify(value);
@@ -12,9 +9,6 @@ export const saveToStorage = <T>(key: string, value: T): void => {
   }
 };
 
-/**
- * Get data from localStorage
- */
 export const getFromStorage = <T>(key: string): T | null => {
   try {
     const serialized = localStorage.getItem(key);
@@ -28,9 +22,6 @@ export const getFromStorage = <T>(key: string): T | null => {
   }
 };
 
-/**
- * Remove data from localStorage
- */
 export const removeFromStorage = (key: string): void => {
   try {
     localStorage.removeItem(key);
@@ -39,9 +30,6 @@ export const removeFromStorage = (key: string): void => {
   }
 };
 
-/**
- * Clear all app data from localStorage
- */
 export const clearStorage = (): void => {
   try {
     Object.values(STORAGE_KEYS).forEach(key => {
@@ -52,23 +40,14 @@ export const clearStorage = (): void => {
   }
 };
 
-/**
- * Get auth token from storage
- */
 export const getAuthToken = (): string | null => {
   return getFromStorage<string>(STORAGE_KEYS.AUTH_TOKEN);
 };
 
-/**
- * Save auth token to storage
- */
 export const saveAuthToken = (token: string): void => {
   saveToStorage(STORAGE_KEYS.AUTH_TOKEN, token);
 };
 
-/**
- * Remove auth token from storage
- */
 export const removeAuthToken = (): void => {
   removeFromStorage(STORAGE_KEYS.AUTH_TOKEN);
 };

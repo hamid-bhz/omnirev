@@ -1,14 +1,14 @@
 import type {ReactNode} from 'react';
 import {createContext, useContext, useState, useEffect} from 'react';
 
+import type {User} from '@/types/auth';
+import {STORAGE_KEYS} from '@/constants/storage';
 import {
   getAuthToken,
-  saveToStorage,
   getFromStorage,
   removeAuthToken,
-} from '@utils';
-import type {User} from '@types';
-import {STORAGE_KEYS} from '@constants';
+  saveToStorage,
+} from '@/utils/storage';
 
 interface AuthContextType {
   user: User | null;
